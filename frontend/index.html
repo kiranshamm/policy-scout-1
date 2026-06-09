@@ -1,0 +1,450 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>PolicyScout — Website Compliance & Policy Discovery</title>
+  <meta name="description" content="Automatically scan any website and identify critical business and legal compliance pages with direct URLs, compliance scores, and downloadable audit reports." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+
+<!-- ══════════════════════════════════════════════════════════════════ -->
+<!--  NAVIGATION                                                        -->
+<!-- ══════════════════════════════════════════════════════════════════ -->
+<nav class="navbar" id="navbar">
+  <div class="nav-container">
+    <a href="#" class="nav-brand" onclick="showHome()">
+      <div class="nav-logo">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+          <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
+        </svg>
+      </div>
+      PolicyScout
+    </a>
+    <div class="nav-links">
+      <a href="#features" class="nav-link">Features</a>
+      <a href="#how-it-works" class="nav-link">How it works</a>
+      <button class="btn-nav-cta" onclick="document.getElementById('scan-input').focus(); showHome()">Start Scanning →</button>
+    </div>
+  </div>
+</nav>
+
+<!-- ══════════════════════════════════════════════════════════════════ -->
+<!--  HOME VIEW                                                         -->
+<!-- ══════════════════════════════════════════════════════════════════ -->
+<div id="view-home">
+
+  <!-- Hero -->
+  <section class="hero">
+    <div class="hero-bg">
+      <div class="hero-glow hero-glow-1"></div>
+      <div class="hero-glow hero-glow-2"></div>
+      <div class="hero-grid"></div>
+    </div>
+    <div class="hero-content">
+      <div class="hero-badge">
+        <span class="badge-dot"></span>
+        AI-Powered Compliance Detection
+      </div>
+      <h1 class="hero-title">
+        Scan any website for<br />
+        <span class="gradient-text">compliance pages</span><br />
+        in seconds
+      </h1>
+      <p class="hero-subtitle">
+        Automatically discover Privacy Policies, Terms & Conditions, Refund Policies, and 5 more critical pages. Get a compliance score and downloadable audit report.
+      </p>
+
+      <!-- Scan Form -->
+      <div class="scan-form-wrapper" id="home-form">
+        <div class="scan-form">
+          <div class="scan-input-wrapper">
+            <div class="scan-input-icon">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/>
+              </svg>
+            </div>
+            <input
+              type="url"
+              id="scan-input"
+              class="scan-input"
+              placeholder="https://example.com"
+              autocomplete="off"
+              spellcheck="false"
+            />
+          </div>
+          <button class="btn-scan" id="scan-btn" onclick="startScan()">
+            <span class="btn-scan-text">Scan Website</span>
+            <span class="btn-scan-icon">→</span>
+          </button>
+        </div>
+        <div class="scan-error" id="scan-error"></div>
+        <p class="scan-hint">Try: stripe.com · shopify.com · amazon.com · your-domain.com</p>
+      </div>
+
+      <!-- Stats row -->
+      <div class="hero-stats">
+        <div class="stat-item">
+          <span class="stat-number">8</span>
+          <span class="stat-label">Policy Categories</span>
+        </div>
+        <div class="stat-divider"></div>
+        <div class="stat-item">
+          <span class="stat-number">85–95%</span>
+          <span class="stat-label">Detection Accuracy</span>
+        </div>
+        <div class="stat-divider"></div>
+        <div class="stat-item">
+          <span class="stat-number">&lt;30s</span>
+          <span class="stat-label">Scan Time</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Features -->
+  <section class="section features" id="features">
+    <div class="container">
+      <div class="section-header">
+        <h2 class="section-title">Everything you need for compliance discovery</h2>
+        <p class="section-subtitle">From URL submission to downloadable PDF audit reports — all automated.</p>
+      </div>
+      <div class="features-grid">
+        <div class="feature-card">
+          <div class="feature-icon" style="background: linear-gradient(135deg, #6366f1, #8b5cf6)">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2">
+              <circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/>
+            </svg>
+          </div>
+          <h3 class="feature-title">Smart Link Discovery</h3>
+          <p class="feature-desc">Crawls every link on the page, prioritising footer links where compliance pages live 90% of the time.</p>
+        </div>
+        <div class="feature-card">
+          <div class="feature-icon" style="background: linear-gradient(135deg, #06b6d4, #0891b2)">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2">
+              <path d="M9 11l3 3L22 4"/><path d="M21 12v7a2 2 0 01-2 2H5a2 2 0 01-2-2V5a2 2 0 012-2h11"/>
+            </svg>
+          </div>
+          <h3 class="feature-title">8 Policy Categories</h3>
+          <p class="feature-desc">Detects Privacy Policy, T&C, Refund, Shipping, Contact, About, FAQ, and Cancellation Policy pages.</p>
+        </div>
+        <div class="feature-card">
+          <div class="feature-icon" style="background: linear-gradient(135deg, #22c55e, #16a34a)">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2">
+              <line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/>
+              <line x1="6" y1="20" x2="6" y2="14"/>
+            </svg>
+          </div>
+          <h3 class="feature-title">Compliance Score</h3>
+          <p class="feature-desc">Visual score ring showing overall compliance percentage with clear found/missing breakdown.</p>
+        </div>
+        <div class="feature-card">
+          <div class="feature-icon" style="background: linear-gradient(135deg, #f59e0b, #d97706)">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2">
+              <path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/>
+              <polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/>
+              <line x1="16" y1="17" x2="8" y2="17"/><polyline points="10 9 9 9 8 9"/>
+            </svg>
+          </div>
+          <h3 class="feature-title">PDF Audit Reports</h3>
+          <p class="feature-desc">One-click download of a professional compliance audit report with all findings and recommendations.</p>
+        </div>
+        <div class="feature-card">
+          <div class="feature-icon" style="background: linear-gradient(135deg, #ec4899, #be185d)">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2">
+              <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
+            </svg>
+          </div>
+          <h3 class="feature-title">Content Verification</h3>
+          <p class="feature-desc">For pages with non-obvious URLs, the engine reads page content to confirm the policy type.</p>
+        </div>
+        <div class="feature-card">
+          <div class="feature-icon" style="background: linear-gradient(135deg, #8b5cf6, #7c3aed)">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2">
+              <circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/>
+            </svg>
+          </div>
+          <h3 class="feature-title">Real-time Progress</h3>
+          <p class="feature-desc">Watch the scan progress live with animated status updates as pages are discovered and classified.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- How it works -->
+  <section class="section how-it-works" id="how-it-works">
+    <div class="container">
+      <div class="section-header">
+        <h2 class="section-title">How PolicyScout works</h2>
+        <p class="section-subtitle">Three steps from URL to full compliance report.</p>
+      </div>
+      <div class="steps-wrapper">
+        <div class="step">
+          <div class="step-number">01</div>
+          <div class="step-content">
+            <h3>Submit your URL</h3>
+            <p>Enter any website URL. PolicyScout accepts bare domains, http and https links.</p>
+          </div>
+        </div>
+        <div class="step-connector"></div>
+        <div class="step">
+          <div class="step-number">02</div>
+          <div class="step-content">
+            <h3>Automated crawl & classify</h3>
+            <p>Our engine crawls all links, extracts footer navigation, and classifies each page using URL patterns and content analysis.</p>
+          </div>
+        </div>
+        <div class="step-connector"></div>
+        <div class="step">
+          <div class="step-number">03</div>
+          <div class="step-content">
+            <h3>Get your compliance report</h3>
+            <p>View the interactive dashboard with direct links to each policy, your compliance score, and download a PDF audit report.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-brand">
+        <div class="nav-logo">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+            <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
+          </svg>
+        </div>
+        PolicyScout
+      </div>
+      <p class="footer-text">Automated Website Compliance & Policy Discovery Platform</p>
+    </div>
+  </footer>
+</div>
+
+<!-- ══════════════════════════════════════════════════════════════════ -->
+<!--  SCANNING VIEW                                                     -->
+<!-- ══════════════════════════════════════════════════════════════════ -->
+<div id="view-scanning" class="hidden">
+  <section class="scanning-section">
+    <div class="container scanning-container">
+      <button class="back-btn" onclick="showHome()">
+        ← New Scan
+      </button>
+      <div class="scanning-card">
+        <div class="scanning-animation">
+          <div class="scan-rings">
+            <div class="scan-ring ring-1"></div>
+            <div class="scan-ring ring-2"></div>
+            <div class="scan-ring ring-3"></div>
+            <div class="scan-ring-center">
+              <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/>
+              </svg>
+            </div>
+          </div>
+        </div>
+        <h2 class="scanning-title">Scanning <span id="scanning-domain" class="gradient-text"></span></h2>
+        <p class="scanning-subtitle">Crawling pages and detecting compliance policies…</p>
+
+        <div class="progress-bar-wrapper">
+          <div class="progress-bar">
+            <div class="progress-fill" id="progress-fill"></div>
+          </div>
+          <span class="progress-label" id="progress-label">Initialising…</span>
+        </div>
+
+        <div class="scan-steps" id="scan-steps">
+          <div class="scan-step" id="step-crawl">
+            <div class="step-status pending">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="12" cy="12" r="10"/></svg>
+            </div>
+            <span>Crawling website links</span>
+          </div>
+          <div class="scan-step" id="step-classify">
+            <div class="step-status pending">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="12" cy="12" r="10"/></svg>
+            </div>
+            <span>Classifying policy pages</span>
+          </div>
+          <div class="scan-step" id="step-score">
+            <div class="step-status pending">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="12" cy="12" r="10"/></svg>
+            </div>
+            <span>Calculating compliance score</span>
+          </div>
+          <div class="scan-step" id="step-report">
+            <div class="step-status pending">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="12" cy="12" r="10"/></svg>
+            </div>
+            <span>Generating report</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+</div>
+
+<!-- ══════════════════════════════════════════════════════════════════ -->
+<!--  RESULTS VIEW                                                      -->
+<!-- ══════════════════════════════════════════════════════════════════ -->
+<div id="view-results" class="hidden">
+  <section class="results-section">
+    <div class="container">
+
+      <!-- Results Header -->
+      <div class="results-header">
+        <button class="back-btn" onclick="showHome()">← New Scan</button>
+        <div class="results-meta">
+          <div class="results-domain" id="results-domain"></div>
+          <div class="results-date" id="results-date"></div>
+        </div>
+        <button class="btn-download" id="btn-download" onclick="downloadReport()">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4"/>
+            <polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/>
+          </svg>
+          Download PDF Report
+        </button>
+      </div>
+
+      <!-- Score + Summary Row -->
+      <div class="summary-row">
+        <!-- Score Ring -->
+        <div class="score-card">
+          <div class="score-ring-wrapper">
+            <svg class="score-ring-svg" viewBox="0 0 120 120">
+              <circle class="score-track" cx="60" cy="60" r="50" />
+              <circle class="score-progress" id="score-circle" cx="60" cy="60" r="50"
+                stroke-dasharray="314.16"
+                stroke-dashoffset="314.16"
+              />
+            </svg>
+            <div class="score-center">
+              <span class="score-number" id="score-number">0%</span>
+              <span class="score-label-inner">Compliance</span>
+            </div>
+          </div>
+          <div class="score-legend">
+            <div class="legend-item">
+              <span class="legend-dot found"></span>
+              <span id="legend-found">0 Found</span>
+            </div>
+            <div class="legend-item">
+              <span class="legend-dot missing"></span>
+              <span id="legend-missing">0 Missing</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Summary Cards -->
+        <div class="summary-cards">
+          <div class="summary-stat-card">
+            <div class="summary-stat-icon" style="background: linear-gradient(135deg, #6366f1, #8b5cf6)">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2">
+                <circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/>
+              </svg>
+            </div>
+            <div>
+              <div class="summary-stat-number" id="stat-links">—</div>
+              <div class="summary-stat-label">Links Crawled</div>
+            </div>
+          </div>
+          <div class="summary-stat-card">
+            <div class="summary-stat-icon" style="background: linear-gradient(135deg, #22c55e, #16a34a)">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2">
+                <path d="M9 11l3 3L22 4"/>
+              </svg>
+            </div>
+            <div>
+              <div class="summary-stat-number" id="stat-found">—</div>
+              <div class="summary-stat-label">Pages Found</div>
+            </div>
+          </div>
+          <div class="summary-stat-card">
+            <div class="summary-stat-icon" style="background: linear-gradient(135deg, #f59e0b, #d97706)">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2">
+                <path d="M10.29 3.86L1.82 18a2 2 0 001.71 3h16.94a2 2 0 001.71-3L13.71 3.86a2 2 0 00-3.42 0z"/>
+                <line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/>
+              </svg>
+            </div>
+            <div>
+              <div class="summary-stat-number" id="stat-missing">—</div>
+              <div class="summary-stat-label">Pages Missing</div>
+            </div>
+          </div>
+          <div class="summary-stat-card">
+            <div class="summary-stat-icon" style="background: linear-gradient(135deg, #06b6d4, #0891b2)">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2">
+                <circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/>
+              </svg>
+            </div>
+            <div>
+              <div class="summary-stat-number" id="stat-score">—</div>
+              <div class="summary-stat-label">Compliance Score</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Missing Alerts -->
+      <div class="alert-section" id="alert-section"></div>
+
+      <!-- Results Table -->
+      <div class="results-table-wrapper">
+        <div class="results-table-header">
+          <h2 class="table-title">Compliance Pages</h2>
+          <div class="table-filters">
+            <button class="filter-btn active" onclick="filterResults('all', this)" id="filter-all">All</button>
+            <button class="filter-btn" onclick="filterResults('found', this)" id="filter-found">Found</button>
+            <button class="filter-btn" onclick="filterResults('missing', this)" id="filter-missing">Missing</button>
+          </div>
+        </div>
+        <div class="results-table">
+          <div class="table-head">
+            <div class="th">Policy Page</div>
+            <div class="th">Status</div>
+            <div class="th">Direct URL</div>
+            <div class="th">Confidence</div>
+          </div>
+          <div class="table-body" id="results-table-body">
+            <!-- rows injected by JS -->
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </section>
+</div>
+
+<!-- ══════════════════════════════════════════════════════════════════ -->
+<!--  ERROR VIEW                                                        -->
+<!-- ══════════════════════════════════════════════════════════════════ -->
+<div id="view-error" class="hidden">
+  <section class="error-section">
+    <div class="container error-container">
+      <button class="back-btn" onclick="showHome()">← Try Again</button>
+      <div class="error-card">
+        <div class="error-icon">
+          <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+            <circle cx="12" cy="12" r="10"/>
+            <line x1="12" y1="8" x2="12" y2="12"/>
+            <line x1="12" y1="16" x2="12.01" y2="16"/>
+          </svg>
+        </div>
+        <h2>Scan Failed</h2>
+        <p id="error-message">Something went wrong while scanning this website.</p>
+        <button class="btn-scan" onclick="showHome()" style="margin-top: 16px; max-width: 200px;">Try Again</button>
+      </div>
+    </div>
+  </section>
+</div>
+
+<script src="config.js"></script>
+<script src="app.js"></script>
+</body>
+</html>
