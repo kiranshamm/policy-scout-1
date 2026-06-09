@@ -1,0 +1,60 @@
+# render.yaml — Render Blueprint
+# Deploys: PostgreSQL + Redis + FastAPI (web) + Celery (worker)
+# Docs: https://render.com/docs/blueprint-spec
+
+services:
+  # ── FastAPI Web Service ─────────────────────────────────────────────
+  - type: web
+    name: policyscout-api
+    runtime: docker
+    dockerfilePath: ./backend/Dockerfile
+    dockerContext: ./backend
+    plan: free
+    envVars:
+      - key: DATABASE_URL
+        fromDatabase:
+          name: policyscout-db
+          property: connectionString
+      - key: REDIS_URL
+        fromService:
+          name: policyscout-redis
+          type: redis
+          property: connectionString
+      - key: PYTHON_ENV
+        value: production
+    healthCheckPath: /health
+    autoDeploy: true
+
+  # ── Celery Worker ───────────────────────────────────────────────────
+  - type: worker
+    name: policyscout-worker
+    runtime: docker
+    dockerfilePath: ./backend/Dockerfile
+    dockerContext: ./backend
+    dockerCommand: celery -A tasks worker --loglevel=info --concurrency=2
+    plan: free
+    envVars:
+      - key: DATABASE_URL
+        fromDatabase:
+          name: policyscout-db
+          property: connectionString
+      - key: REDIS_URL
+        fromService:
+          name: policyscout-redis
+          type: redis
+          property: connectionString
+    autoDeploy: true
+
+  # ── Redis ───────────────────────────────────────────────────────────
+  - type: redis
+    name: policyscout-redis
+    plan: free
+    maxmemoryPolicy: noeviction
+    ipAllowList: []   # empty = only allow internal Render services (recommended)
+
+databases:
+  # ── PostgreSQL ──────────────────────────────────────────────────────
+  - name: policyscout-db
+    plan: free
+    databaseName: policyscout
+    user: policyscout
